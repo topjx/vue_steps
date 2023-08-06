@@ -1,3 +1,5 @@
+## 嵌套路由、query参数、命名路由、params参数、props配置
+```
 //该文件专门用于创建整个应用的路由器
 import VueRouter from "vue-router";
 
@@ -78,3 +80,8 @@ export default new VueRouter({
         }
     ]
 });
+
+```
+
+### sourcelink
+`https://blog.csdn.net/qq_45902692/article/details/124912208`
