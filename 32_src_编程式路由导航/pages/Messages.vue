@@ -69,15 +69,6 @@ export default {
         go() {
             this.$router.go(2);
         }
-    },
-    activated() {
-        console.log('MessagesView activated');
-    },
-    deactivated() {
-        console.log('MessagesView deactivated');
-    },
-    beforeDestroy() {
-        console.log('MessagesView beforeDestroy');
     }
 }
 </script>
