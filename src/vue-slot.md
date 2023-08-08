@@ -284,3 +284,144 @@ Son.vue
 ```
 父组件中：定义`html`结构。数据不在父组件上。
 ```
+
+	<Category>
+        <template>
+            <ul>
+                <li v-for="g in scopeData.games" :key="g">{{g}}</li>
+            </ul>
+        </template>
+        <template>
+            <ul>
+                <h4 v-for="g in scopeData.games" :key="g">{{g}}</h4>
+            </ul>
+        </template>
+    </Category>
+
+```
+子组件中：使用 <slot> 标签，标签内容为默认内容（即不传入具体结构时显示）
+```
+
+```
+	<template>
+        <div>
+            <slot :games="games"></slot>
+        </div>
+    </template>
+
+    <script>
+        export default {
+            name: 'Category',
+            props: ['title'],
+            //数据在子组件自身
+            data(){
+                return{
+                    games: ["王者荣耀", "侠盗飞车", "超级玛丽"]
+                }
+            }
+        }
+    </script>
+```
+
+2.实例：对游戏数据的三种呈现（有序、无序和h4大小）
+```
+`Category.vue`（子组件）
+1.使用插槽，呈现父组件中的内容
+2.数据放入了子组件中
+3.单项数据绑定 games
+```
+
+```
+	<template>
+	  <div class="category">
+	    <h3>{{ title }}分类</h3>
+	    <slot :games="games"></slot>
+	  </div>
+	</template>
+	
+	<script>
+	export default {
+	  name: "myCategory",
+	  props: ["title"],
+	  data() {
+	    return {
+	      games: ["王者荣耀", "侠盗飞车", "超级玛丽"],
+	    };
+	  },
+	};
+	</script>
+	
+	<style scoped>
+	.category {
+	  background-color: skyblue;
+	  height: 300px;
+	  width: 200px;
+	}
+	h3 {
+	  text-align: center;
+	  background-color: orange;
+	}
+	img {
+	  width: 100%;
+	}
+	</style>
+```
+
+```
+`App.vue`（父组件）
+1.常规写法：先 scope="demo"，再 demo.games
+2.ES6+另一种常规写法写法：先 slot-scope="{games}"，直接解构 games
+3.ES6+新命名方式：v-slot="games"，直接解构 games
+4.3可以简写为：#:{games}
+```
+
+```
+	<template>
+	  <div class="container">
+	    <Category title="游戏">
+	      <template scope="demo">
+	        <ul>
+	          <li v-for="(g, index) in demo.games" :key="index">{{ g }}</li>
+	        </ul>
+	      </template>
+	    </Category>
+	    
+	    <Category title="游戏">
+	      <template slot-scope="{games}">
+	        <ol>
+	          <li v-for="(g, index) in games" :key="index">{{ g }}</li>
+	        </ol>
+	      </template>
+	    </Category> 
+	    
+	    <Category title="游戏">
+	      <template v-slot="{games}">
+	        <h4><li v-for="(g, index) in games" :key="index">{{ g }}</li></h4>
+	      </template>
+	    </Category>
+	  </div>
+	</template>
+	
+	<script>
+	// 引入组件
+	import Category from "./components/Category.vue";
+	export default {
+	  name: "App",
+	  components: { Category },
+	};
+	</script>
+	
+	<style scoped>
+	.container,
+	.foot {
+	  display: flex;
+	  justify-content: space-around;
+	}
+	video {
+	  width: 100%;
+	}
+	h4 {
+	  text-align: center;
+	}
+	</style>
+```
