@@ -5,11 +5,12 @@
 ```
 插槽用来父组件和子组件之间的传值
 
-<Father>
+Father.vue
+<div>
     <Son>
         <div>传入子组件的元素、控件</div>
     </Son>
-</Father>
+</div>
 
 Son.vue
 <div>
