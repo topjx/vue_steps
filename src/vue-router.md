@@ -89,3 +89,43 @@ beforeRouterLeave(to,from,next){...}
 ```
 ## sourcelink
 `https://blog.csdn.net/qq_45902692/article/details/124967072`
+
+
+### 其他
+`router-view`
+```
+为什么子router-view和孙router-view作为容器显示的组件没有错乱，比如显示在孙router-view的组件没有显示在子router-view?
+router-view的显示依赖路由的注册，
+{
+	path:’/home’,
+	component:Home,
+	children:[
+	 	path:’/son’,
+		name:’son’
+		component:Sone,
+		children:[
+			path:’/grandSon’,
+			name:’grandSon’,
+			component:GrandSon
+		]	
+	]
+}
+Son一定是显示在Home的router-view,Son是Home的children
+GrandSon一定显示在Son的router-view,GrandSon是Son的children，
+所以子组件显示的router-view位置一定不会错（和path、name没有关系，只和children有关系）
+```
+
+`children 子路由 嵌套路由`
+```
+        {
+            path: '/home',
+            component: Home,
+            children: [ //通过children配置子级路由（嵌套路由），子路由所有组件显示在父级上，也就是父级组件中的<router-view/>
+                // {
+                //     // path:'',//等同于 path:'/home'
+                //     // component:Homehome,
+                //     // path:'test',//此处没有 /  相对路径 访问地址为localhost:8080/home/test
+                //     path:'/test',//此处有 /  访问地址为localhost:8080/test
+                //     component:test,
+                // },
+```

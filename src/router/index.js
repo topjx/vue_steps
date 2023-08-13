@@ -22,7 +22,14 @@ const router = new VueRouter({
         {
             path: '/home',
             component: Home,
-            children: [ //通过children配置子级路由
+            children: [ //通过children配置子级路由（嵌套路由），子路由所有组件显示在父级上，也就是父级组件中的<router-view/>
+                // {
+                //     // path:'',//等同于 path:'/home'
+                //     // component:Homehome,
+                //     // path:'test',//此处没有 /  相对路径 访问地址为localhost:8080/home/test
+                //     path:'/test',//此处有 /  访问地址为localhost:8080/test
+                //     component:test,
+                // },
                 {
                     path: 'news', //此处没有 /
                     component: News,
